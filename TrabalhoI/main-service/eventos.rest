@@ -1,0 +1,93 @@
+@urlServer = http://localhost:4000
+
+# ===== TESTE DE SAÚDE =====
+
+GET {{urlServer}}/events/status # Verificar se o serviço de eventos está rodando
+
+# ===== CRIAÇÃO DE EVENTOS (EXECUTE PRIMEIRO) =====
+
+POST {{urlServer}}/events # 1. Criar evento Show (copie o ID retornado)
+Content-Type: application/json
+
+{
+  "description": "Show de Rock Nacional",
+  "type": "SHOW",
+  "date": "2026-03-15T20:00:00",
+  "startSales": "2026-02-15T10:00:00",
+  "endSales": "2026-03-14T23:59:59",
+  "price": 85.50
+}
+
+###
+
+POST {{urlServer}}/events # 2. Criar evento Palestra (copie o ID retornado)
+Content-Type: application/json
+
+{
+  "description": "Palestra sobre Inteligência Artificial",
+  "type": "PALESTRA",
+  "date": "2026-04-20T14:00:00",
+  "startSales": "2026-02-20T08:00:00",
+  "endSales": "2026-04-19T12:00:00",
+  "price": 25.00
+}
+
+###
+
+POST {{urlServer}}/events # 3. Criar evento Teatro (copie o ID retornado)
+Content-Type: application/json
+
+{
+  "description": "Peça Teatral: O Auto da Compadecida",
+  "type": "TEATRO",
+  "date": "2026-05-10T19:30:00",
+  "startSales": "2026-03-10T09:00:00",
+  "endSales": "2026-05-09T18:00:00",
+  "price": 45.00
+}
+
+# ===== CONSULTAS DE EVENTOS =====
+
+GET {{urlServer}}/events # Listar todos os eventos criados
+
+###
+
+GET {{urlServer}}/events/{{$guid}} # Buscar evento por ID específico (substitua pelo ID real)
+
+###
+
+GET {{urlServer}}/events/type/SHOW # Buscar apenas eventos do tipo SHOW
+
+###
+
+GET {{urlServer}}/events/type/PALESTRA # Buscar apenas eventos do tipo PALESTRA
+
+###
+
+GET {{urlServer}}/events/search?description=rock # Pesquisar eventos pela descrição
+
+###
+
+GET {{urlServer}}/events/active-sales # Listar eventos com vendas ativas no momento
+
+###
+
+GET {{urlServer}}/events/date-range?startDate=2026-03-01T00:00:00&endDate=2026-04-30T23:59:59 # Buscar eventos por período
+
+# ===== ATUALIZAÇÃO DE EVENTOS =====
+
+PUT {{urlServer}}/events/{{$guid}} # Atualizar evento (substitua pelo ID real)
+Content-Type: application/json
+
+{
+  "description": "Show de Rock Nacional - ATUALIZADO",
+  "type": "SHOW",
+  "date": "2026-03-15T21:00:00",
+  "startSales": "2026-02-15T10:00:00",
+  "endSales": "2026-03-14T23:59:59",
+  "price": 95.00
+}
+
+# ===== REMOÇÃO DE EVENTOS =====
+
+DELETE {{urlServer}}/events/{{$guid}} # Remover evento (substitua pelo ID real)

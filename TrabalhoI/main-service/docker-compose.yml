@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres-trabalho1:
+    image: postgres:15
+    container_name: postgres-trabalho1
+    environment:
+      POSTGRES_DB: trabalho_pratico_1
+      POSTGRES_USER: trabalho1_user
+      POSTGRES_PASSWORD: trabalho1_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_trabalho1_data:/var/lib/postgresql/data
+    networks:
+      - trabalho1-network
+
+volumes:
+  postgres_trabalho1_data:
+
+networks:
+  trabalho1-network:
+    driver: bridge

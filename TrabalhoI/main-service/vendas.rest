@@ -1,0 +1,109 @@
+@urlServer = http://localhost:4000
+
+# ===== TESTE DE SAÚDE =====
+
+GET {{urlServer}}/sales/status # Verificar se o serviço de vendas está rodando
+
+# ===== CRIAÇÃO DE VENDAS (EXECUTE APÓS CRIAR OS EVENTOS) =====
+
+POST {{urlServer}}/sales # 1. Criar venda EM_ABERTO (substitua eventId pelo ID real do evento criado)
+Content-Type: application/json
+
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174000",
+  "eventId": "SUBSTITUA_PELO_ID_DO_EVENTO",
+  "purchaseDate": "2026-02-11T15:30:00",
+  "purchaseStatus": "EM_ABERTO"
+}
+
+###
+
+POST {{urlServer}}/sales # 2. Criar venda PAGA (substitua eventId pelo ID real do evento criado)
+Content-Type: application/json
+
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174001",
+  "eventId": "SUBSTITUA_PELO_ID_DO_EVENTO",
+  "purchaseDate": "2026-02-11T16:00:00",
+  "purchaseStatus": "PAGO"
+}
+
+###
+
+POST {{urlServer}}/sales # 3. Criar venda CANCELADA (substitua eventId pelo ID real do evento criado)
+Content-Type: application/json
+
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174002",
+  "eventId": "SUBSTITUA_PELO_ID_DO_EVENTO",
+  "purchaseDate": "2026-02-11T17:00:00",
+  "purchaseStatus": "CANCELADO"
+}
+
+# ===== CONSULTAS DE VENDAS =====
+
+GET {{urlServer}}/sales # Listar todas as vendas criadas
+
+###
+
+GET {{urlServer}}/sales/{{$guid}} # Buscar venda por ID específico (substitua pelo ID real da venda criada)
+
+###
+
+GET {{urlServer}}/sales/user/123e4567-e89b-12d3-a456-426614174000 # Buscar vendas de um usuário específico
+
+###
+
+GET {{urlServer}}/sales/event/SUBSTITUA_PELO_ID_DO_EVENTO # Buscar vendas de um evento específico
+
+###
+
+GET {{urlServer}}/sales/status/EM_ABERTO # Buscar vendas em aberto
+
+###
+
+GET {{urlServer}}/sales/status/PAGO # Buscar vendas pagas
+
+###
+
+GET {{urlServer}}/sales/status/CANCELADO # Buscar vendas canceladas
+
+###
+
+GET {{urlServer}}/sales/user/123e4567-e89b-12d3-a456-426614174000/status/PAGO # Vendas pagas de um usuário específico
+
+###
+
+GET {{urlServer}}/sales/event/SUBSTITUA_PELO_ID_DO_EVENTO/status/PAGO # Vendas pagas de um evento específico
+
+###
+
+GET {{urlServer}}/sales/date-range?startDate=2026-02-01T00:00:00&endDate=2026-02-28T23:59:59 # Vendas por período
+
+# ===== ATUALIZAÇÃO DE VENDAS =====
+
+PUT {{urlServer}}/sales/{{$guid}} # Alterar status EM_ABERTO para PAGO (substitua pelo ID real da venda)
+Content-Type: application/json
+
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174000",
+  "eventId": "SUBSTITUA_PELO_ID_DO_EVENTO",
+  "purchaseDate": "2026-02-11T15:30:00",
+  "purchaseStatus": "PAGO"
+}
+
+###
+
+PUT {{urlServer}}/sales/{{$guid}} # Alterar status PAGO para ESTORNADO (substitua pelo ID real da venda)
+Content-Type: application/json
+
+{
+  "userId": "123e4567-e89b-12d3-a456-426614174000",
+  "eventId": "SUBSTITUA_PELO_ID_DO_EVENTO",
+  "purchaseDate": "2026-02-11T15:30:00",
+  "purchaseStatus": "ESTORNADO"
+}
+
+# ===== REMOÇÃO DE VENDAS =====
+
+DELETE {{urlServer}}/sales/{{$guid}} # Remover venda (substitua pelo ID real da venda)
