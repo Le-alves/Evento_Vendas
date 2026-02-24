@@ -42,19 +42,6 @@ function App() {
           
         </div>
         
-        <div className="mt-8 bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Funcionalidades Implementadas</h3>
-          <p className="text-gray-600 text-sm">
-            ✅ Estrutura React + TypeScript + Tailwind CSS<br/>
-            ✅ Navegação entre páginas (React Router)<br/>
-            ✅ Comunicação direta com main-service (localhost:4000)<br/>
-            ✅ Cadastro de eventos com validação<br/>
-            ✅ Lista de eventos com tabela responsiva<br/>
-            ✅ Tipos TypeScript definidos (Events, Sales, Users)<br/>
-            📝 Próximo: Implementar CRUD completo e integração com vendas
-          </p>
-        </div>
-        
       </main>
 
     </>
